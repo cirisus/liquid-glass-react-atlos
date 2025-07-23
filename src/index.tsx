@@ -440,7 +440,7 @@ export default function LiquidGlass({
       case "top-left":
         return `translate(${translation.x}px, ${translation.y}px) ${scale}`
       case "top-right":
-        return `translate(calc(-100% + ${translation.x}px), ${translation.y}px) ${scale}`
+        return `translate(${translation.x}px, ${translation.y}px) ${scale}`
       case "bottom-left":
         return `translate(${translation.x}px, calc(-100% + ${translation.y}px)) ${scale}`
       case "bottom-right":
@@ -505,6 +505,8 @@ export default function LiquidGlass({
       case "free":
         return {
           position: basePosition,
+          bottom: baseStyle.bottom || "0",
+          right: baseStyle.right || "0",
         }
       default:
         return {
