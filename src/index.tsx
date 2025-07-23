@@ -263,6 +263,7 @@ interface LiquidGlassProps {
   overLight?: boolean
   mode?: "standard" | "polar" | "prominent" | "shader"
   onClick?: () => void
+  positioning?: "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right"
 }
 
 export default function LiquidGlass({
@@ -282,6 +283,7 @@ export default function LiquidGlass({
   style = {},
   mode = "standard",
   onClick,
+  positioning = "center",
 }: LiquidGlassProps) {
   const glassRef = useRef<HTMLDivElement>(null)
   const [isHovered, setIsHovered] = useState(false)
@@ -427,6 +429,27 @@ export default function LiquidGlass({
     }
   }, [globalMousePos, elasticity, calculateFadeInFactor])
 
+  // Helper function to calculate transform based on positioning mode
+  const calculateTransformByPositioning = useCallback(() => {
+    const translation = calculateElasticTranslation()
+    const scale = isActive && Boolean(onClick) ? "scale(0.96)" : calculateDirectionalScale()
+    
+    switch (positioning) {
+      case "center":
+        return `translate(calc(-50% + ${translation.x}px), calc(-50% + ${translation.y}px)) ${scale}`
+      case "top-left":
+        return `translate(${translation.x}px, ${translation.y}px) ${scale}`
+      case "top-right":
+        return `translate(calc(-100% + ${translation.x}px), ${translation.y}px) ${scale}`
+      case "bottom-left":
+        return `translate(${translation.x}px, calc(-100% + ${translation.y}px)) ${scale}`
+      case "bottom-right":
+        return `translate(calc(-100% + ${translation.x}px), calc(-100% + ${translation.y}px)) ${scale}`
+      default:
+        return `translate(calc(-50% + ${translation.x}px), calc(-50% + ${translation.y}px)) ${scale}`
+    }
+  }, [calculateElasticTranslation, calculateDirectionalScale, isActive, onClick, positioning])
+
   // Update glass size whenever component mounts or window resizes
   useEffect(() => {
     const updateGlassSize = () => {
@@ -441,7 +464,50 @@ export default function LiquidGlass({
     return () => window.removeEventListener("resize", updateGlassSize)
   }, [])
 
-  const transformStyle = `translate(calc(-50% + ${calculateElasticTranslation().x}px), calc(-50% + ${calculateElasticTranslation().y}px)) ${isActive && Boolean(onClick) ? "scale(0.96)" : calculateDirectionalScale()}`
+  const transformStyle = calculateTransformByPositioning()
+
+  const getDefaultPositionStyles = () => {
+    const basePosition = baseStyle.position || "relative"
+    
+    switch (positioning) {
+      case "center":
+        return {
+          position: basePosition,
+          top: baseStyle.top || "50%",
+          left: baseStyle.left || "50%",
+        }
+      case "top-left":
+        return {
+          position: basePosition,
+          top: baseStyle.top || "0",
+          left: baseStyle.left || "0",
+        }
+      case "top-right":
+        return {
+          position: basePosition,
+          top: baseStyle.top || "0",
+          right: baseStyle.right || "0",
+        }
+      case "bottom-left":
+        return {
+          position: basePosition,
+          bottom: baseStyle.bottom || "0",
+          left: baseStyle.left || "0",
+        }
+      case "bottom-right":
+        return {
+          position: basePosition,
+          bottom: baseStyle.bottom || "0",
+          right: baseStyle.right || "0",
+        }
+      default:
+        return {
+          position: basePosition,
+          top: baseStyle.top || "50%",
+          left: baseStyle.left || "50%",
+        }
+    }
+  }
 
   const baseStyle = {
     ...style,
@@ -449,11 +515,7 @@ export default function LiquidGlass({
     transition: "all ease-out 0.2s",
   }
 
-  const positionStyles = {
-    position: baseStyle.position || "relative",
-    top: baseStyle.top || "50%",
-    left: baseStyle.left || "50%",
-  }
+  const positionStyles = getDefaultPositionStyles()
 
   return (
     <>

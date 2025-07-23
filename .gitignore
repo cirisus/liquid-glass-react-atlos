@@ -178,3 +178,5 @@ dist/
 .DS_Store
 
 liquid-glass-example/src/components
+
+.history

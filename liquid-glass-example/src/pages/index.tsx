@@ -18,6 +18,7 @@ export default function Home() {
   const [cornerRadius, setCornerRadius] = useState(32)
   const [userInfoOverLight, setUserInfoOverLight] = useState(false)
   const [userInfoMode, setUserInfoMode] = useState<"standard" | "polar" | "prominent" | "shader">("standard")
+  const [userInfoPositioning, setUserInfoPositioning] = useState<"center" | "top-left" | "top-right" | "bottom-left" | "bottom-right">("center")
 
   // Log Out Button Controls
   const [logoutDisplacementScale, setLogoutDisplacementScale] = useState(64)
@@ -28,6 +29,7 @@ export default function Home() {
   const [logoutCornerRadius, setLogoutCornerRadius] = useState(100)
   const [logoutOverLight, setLogoutOverLight] = useState(false)
   const [logoutMode, setLogoutMode] = useState<"standard" | "polar" | "prominent" | "shader">("standard")
+  const [logoutPositioning, setLogoutPositioning] = useState<"center" | "top-left" | "top-right" | "bottom-left" | "bottom-right">("center")
 
   // Shared state
   const [activeTab, setActiveTab] = useState<"userInfo" | "logOut">("userInfo")
@@ -82,6 +84,7 @@ export default function Home() {
               mouseContainer={containerRef}
               overLight={scrollingOverBrightSection || userInfoOverLight}
               mode={userInfoMode}
+              positioning={userInfoPositioning}
               style={{
                 position: "fixed",
                 top: "25%",
@@ -128,6 +131,7 @@ export default function Home() {
             mouseContainer={containerRef}
             overLight={scrollingOverBrightSection || logoutOverLight}
             mode={logoutMode}
+            positioning={logoutPositioning}
             padding="8px 16px"
             onClick={() => {
               console.log("Logged out")
@@ -240,6 +244,83 @@ export default function Home() {
                   </div>
                 </div>
                 <p className="text-xs text-white/50 mt-2">Controls the refraction calculation method</p>
+              </div>
+
+              <div>
+                <span className="block text-sm font-semibold text-white/90 mb-3">Positioning Mode</span>
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-3">
+                    <input
+                      type="radio"
+                      id="userInfoPositioningCenter"
+                      name="userInfoPositioning"
+                      value="center"
+                      checked={userInfoPositioning === "center"}
+                      onChange={(e) => setUserInfoPositioning(e.target.value as "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right")}
+                      className="w-4 h-4 accent-blue-500"
+                    />
+                    <label htmlFor="userInfoPositioningCenter" className="text-sm text-white/90">
+                      Center
+                    </label>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <input
+                      type="radio"
+                      id="userInfoPositioningTopLeft"
+                      name="userInfoPositioning"
+                      value="top-left"
+                      checked={userInfoPositioning === "top-left"}
+                      onChange={(e) => setUserInfoPositioning(e.target.value as "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right")}
+                      className="w-4 h-4 accent-blue-500"
+                    />
+                    <label htmlFor="userInfoPositioningTopLeft" className="text-sm text-white/90">
+                      Top Left
+                    </label>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <input
+                      type="radio"
+                      id="userInfoPositioningTopRight"
+                      name="userInfoPositioning"
+                      value="top-right"
+                      checked={userInfoPositioning === "top-right"}
+                      onChange={(e) => setUserInfoPositioning(e.target.value as "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right")}
+                      className="w-4 h-4 accent-blue-500"
+                    />
+                    <label htmlFor="userInfoPositioningTopRight" className="text-sm text-white/90">
+                      Top Right
+                    </label>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <input
+                      type="radio"
+                      id="userInfoPositioningBottomLeft"
+                      name="userInfoPositioning"
+                      value="bottom-left"
+                      checked={userInfoPositioning === "bottom-left"}
+                      onChange={(e) => setUserInfoPositioning(e.target.value as "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right")}
+                      className="w-4 h-4 accent-blue-500"
+                    />
+                    <label htmlFor="userInfoPositioningBottomLeft" className="text-sm text-white/90">
+                      Bottom Left
+                    </label>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <input
+                      type="radio"
+                      id="userInfoPositioningBottomRight"
+                      name="userInfoPositioning"
+                      value="bottom-right"
+                      checked={userInfoPositioning === "bottom-right"}
+                      onChange={(e) => setUserInfoPositioning(e.target.value as "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right")}
+                      className="w-4 h-4 accent-blue-500"
+                    />
+                    <label htmlFor="userInfoPositioningBottomRight" className="text-sm text-white/90">
+                      Bottom Right
+                    </label>
+                  </div>
+                </div>
+                <p className="text-xs text-white/50 mt-2">Controls transform anchor point for positioning</p>
               </div>
 
               <div>
@@ -372,6 +453,83 @@ export default function Home() {
                   </div>
                 </div>
                 <p className="text-xs text-white/50 mt-2">Controls the refraction calculation method</p>
+              </div>
+
+              <div>
+                <span className="block text-sm font-semibold text-white/90 mb-3">Positioning Mode</span>
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-3">
+                    <input
+                      type="radio"
+                      id="logoutPositioningCenter"
+                      name="logoutPositioning"
+                      value="center"
+                      checked={logoutPositioning === "center"}
+                      onChange={(e) => setLogoutPositioning(e.target.value as "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right")}
+                      className="w-4 h-4 accent-blue-500"
+                    />
+                    <label htmlFor="logoutPositioningCenter" className="text-sm text-white/90">
+                      Center
+                    </label>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <input
+                      type="radio"
+                      id="logoutPositioningTopLeft"
+                      name="logoutPositioning"
+                      value="top-left"
+                      checked={logoutPositioning === "top-left"}
+                      onChange={(e) => setLogoutPositioning(e.target.value as "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right")}
+                      className="w-4 h-4 accent-blue-500"
+                    />
+                    <label htmlFor="logoutPositioningTopLeft" className="text-sm text-white/90">
+                      Top Left
+                    </label>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <input
+                      type="radio"
+                      id="logoutPositioningTopRight"
+                      name="logoutPositioning"
+                      value="top-right"
+                      checked={logoutPositioning === "top-right"}
+                      onChange={(e) => setLogoutPositioning(e.target.value as "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right")}
+                      className="w-4 h-4 accent-blue-500"
+                    />
+                    <label htmlFor="logoutPositioningTopRight" className="text-sm text-white/90">
+                      Top Right
+                    </label>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <input
+                      type="radio"
+                      id="logoutPositioningBottomLeft"
+                      name="logoutPositioning"
+                      value="bottom-left"
+                      checked={logoutPositioning === "bottom-left"}
+                      onChange={(e) => setLogoutPositioning(e.target.value as "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right")}
+                      className="w-4 h-4 accent-blue-500"
+                    />
+                    <label htmlFor="logoutPositioningBottomLeft" className="text-sm text-white/90">
+                      Bottom Left
+                    </label>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <input
+                      type="radio"
+                      id="logoutPositioningBottomRight"
+                      name="logoutPositioning"
+                      value="bottom-right"
+                      checked={logoutPositioning === "bottom-right"}
+                      onChange={(e) => setLogoutPositioning(e.target.value as "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right")}
+                      className="w-4 h-4 accent-blue-500"
+                    />
+                    <label htmlFor="logoutPositioningBottomRight" className="text-sm text-white/90">
+                      Bottom Right
+                    </label>
+                  </div>
+                </div>
+                <p className="text-xs text-white/50 mt-2">Controls transform anchor point for positioning</p>
               </div>
 
               <div>

@@ -1,6 +1,6 @@
-# Liquid Glass React
+# Liquid Glass React Positioning
 
-Apple's Liquid Glass effect for React.
+Apple's Liquid Glass effect for React with enhanced positioning support.
 
 Card Example              |  Button Example
 :-------------------------:|:-------------------------:
@@ -31,13 +31,13 @@ Card Example              |  Button Example
 ### Installation
 
 ```bash
-npm install liquid-glass-react
+npm install liquid-glass-react-positioning
 ```
 
 ### Basic Usage
 
 ```tsx
-import LiquidGlass from 'liquid-glass-react'
+import LiquidGlass from 'liquid-glass-react-positioning'
 
 function App() {
   return (
@@ -110,5 +110,35 @@ function App() {
 | `onClick` | `() => void` | - | Click handler |
 | `mouseContainer` | `React.RefObject<HTMLElement \| null> \| null` | `null` | Container element to track mouse movement on (defaults to the glass component itself) |
 | `mode` | `"standard" \| "polar" \| "prominent" \| "shader"` | `"standard"` | Refraction mode for different visual effects. `shader` is the most accurate but not the most stable. |
+| `positioning` | `"center" \| "top-left" \| "top-right" \| "bottom-left" \| "bottom-right"` | `"center"` | Controls the transform anchor point for positioning. Use different modes to control how the element transforms relative to its position. |
 | `globalMousePos` | `{ x: number; y: number }` | - | Global mouse position coordinates for manual control |
 | `mouseOffset` | `{ x: number; y: number }` | - | Mouse position offset for fine-tuning positioning |
+
+## Positioning Modes
+
+The `positioning` prop allows you to control how the glass element transforms relative to its position:
+
+- `center` (default): Uses `translate(-50%, -50%)` for center positioning
+- `top-left`: Uses `translate(0, 0)` for top-left anchor positioning  
+- `top-right`: Uses `translate(-100%, 0)` for top-right anchor positioning
+- `bottom-left`: Uses `translate(0, -100%)` for bottom-left anchor positioning
+- `bottom-right`: Uses `translate(-100%, -100%)` for bottom-right anchor positioning
+
+### Positioning Examples
+
+```tsx
+// Center positioning (default)
+<LiquidGlass positioning="center" style={{ position: "absolute", top: "50%", left: "50%" }}>
+  Centered content
+</LiquidGlass>
+
+// Top-left positioning
+<LiquidGlass positioning="top-left" style={{ position: "absolute", top: "20px", left: "20px" }}>
+  Top-left content
+</LiquidGlass>
+
+// Bottom-right positioning
+<LiquidGlass positioning="bottom-right" style={{ position: "absolute", bottom: "20px", right: "20px" }}>
+  Bottom-right content
+</LiquidGlass>
+```

@@ -1,7 +1,7 @@
 {
-  "name": "liquid-glass-react",
-  "version": "1.1.1",
-  "description": "Apple's Liquid Glass effect for React",
+  "name": "liquid-glass-react-positioning",
+  "version": "1.0.0",
+  "description": "Apple's Liquid Glass effect for React with positioning support",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -29,11 +29,11 @@
     "react-dom": "^18.2.0",
     "typescript": "^5.0.0"
   },
-  "keywords": ["react", "component", "library", "typescript"],
-  "author": "",
+  "keywords": ["react", "component", "library", "typescript", "liquid-glass", "positioning", "glass-effect"],
+  "author": "cirisus",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/cirisus/liquid-glass-react-atlos"
   }
 }
