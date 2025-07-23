@@ -110,7 +110,7 @@ function App() {
 | `onClick` | `() => void` | - | Click handler |
 | `mouseContainer` | `React.RefObject<HTMLElement \| null> \| null` | `null` | Container element to track mouse movement on (defaults to the glass component itself) |
 | `mode` | `"standard" \| "polar" \| "prominent" \| "shader"` | `"standard"` | Refraction mode for different visual effects. `shader` is the most accurate but not the most stable. |
-| `positioning` | `"center" \| "top-left" \| "top-right" \| "bottom-left" \| "bottom-right"` | `"center"` | Controls the transform anchor point for positioning. Use different modes to control how the element transforms relative to its position. |
+| `positioning` | `"center" \| "top-left" \| "top-right" \| "bottom-left" \| "bottom-right" \| "free"` | `"center"` | Controls the transform anchor point for positioning. Use different modes to control how the element transforms relative to its position. |
 | `globalMousePos` | `{ x: number; y: number }` | - | Global mouse position coordinates for manual control |
 | `mouseOffset` | `{ x: number; y: number }` | - | Mouse position offset for fine-tuning positioning |
 
@@ -123,6 +123,7 @@ The `positioning` prop allows you to control how the glass element transforms re
 - `top-right`: Uses `translate(-100%, 0)` for top-right anchor positioning
 - `bottom-left`: Uses `translate(0, -100%)` for bottom-left anchor positioning
 - `bottom-right`: Uses `translate(-100%, -100%)` for bottom-right anchor positioning
+- `free`: Uses `translate(x, y)` with no percentage offset - gives you complete control over positioning
 
 ### Positioning Examples
 
@@ -140,5 +141,10 @@ The `positioning` prop allows you to control how the glass element transforms re
 // Bottom-right positioning
 <LiquidGlass positioning="bottom-right" style={{ position: "absolute", bottom: "20px", right: "20px" }}>
   Bottom-right content
+</LiquidGlass>
+
+// Free positioning (no automatic percentage offsets)
+<LiquidGlass positioning="free" style={{ position: "absolute", top: "100px", left: "200px" }}>
+  Freely positioned content
 </LiquidGlass>
 ```
