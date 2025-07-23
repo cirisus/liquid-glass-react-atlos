@@ -263,7 +263,7 @@ interface LiquidGlassProps {
   overLight?: boolean
   mode?: "standard" | "polar" | "prominent" | "shader"
   onClick?: () => void
-  positioning?: "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right"
+  positioning?: "center" | "top-left" | "top-right" | "bottom-left" | "bottom-right" | "free"
 }
 
 export default function LiquidGlass({
@@ -445,6 +445,8 @@ export default function LiquidGlass({
         return `translate(${translation.x}px, calc(-100% + ${translation.y}px)) ${scale}`
       case "bottom-right":
         return `translate(calc(-100% + ${translation.x}px), calc(-100% + ${translation.y}px)) ${scale}`
+      case "free":
+        return `translate(${translation.x}px, ${translation.y}px) ${scale}`
       default:
         return `translate(calc(-50% + ${translation.x}px), calc(-50% + ${translation.y}px)) ${scale}`
     }
@@ -499,6 +501,10 @@ export default function LiquidGlass({
           position: basePosition,
           bottom: baseStyle.bottom || "0",
           right: baseStyle.right || "0",
+        }
+      case "free":
+        return {
+          position: basePosition,
         }
       default:
         return {
